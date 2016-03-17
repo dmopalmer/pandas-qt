@@ -5,14 +5,14 @@ import sip
 try:
     sip.setapi('QString', 2)
     sip.setapi('QVariant', 2)
-except ValueError, e:
+except ValueError as e:
     log.error(e)
 
 try:
     from PyQt4 import QtCore as QtCore_
     from PyQt4 import QtGui as QtGui_
     from PyQt4.QtCore import pyqtSlot as Slot, pyqtSignal as Signal
-except ImportError, e:
+except ImportError as e:
     from PySide import QtCore as QtCore_
     from PySide import QtGui as QtGui_
     from PySide.QtCore import Slot, Signal

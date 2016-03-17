@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 import sys
 
 from pandasqt.excepthook import excepthook
@@ -217,13 +218,13 @@ class TestWidget(QtGui.QWidget):
         self.dataComboBox.setModelColumn(index)
 
     def goToColumn(self):
-        print "go to column 7"
+        print("go to column 7")
         index = self.dataTableView.view().model().index(7, 0)
         self.dataTableView.view().setCurrentIndex(index)
 
     def changeColumnValue(self, columnName, index, dtype):
-        print "failed to change", columnName, "to", dtype
-        print index.data(), index.isValid()
+        print("failed to change", columnName, "to", dtype)
+        print(index.data(), index.isValid())
         self.dataTableView.view().setCurrentIndex(index)
 
     def setFilter(self):

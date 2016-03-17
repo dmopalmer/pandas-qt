@@ -1,7 +1,10 @@
 # copied and modified from Eric IDE ( credits goes to author )
 
 import time
-import cStringIO
+try:
+    import cStringIO
+except ImportError:
+    from io import StringIO as cStringIO
 import traceback
 from pandasqt.compat import QtGui
 import codecs
@@ -9,6 +12,10 @@ import os
 import tempfile
 # fallback solution to show a OS independent messagebox
 from easygui.boxes.derived_boxes import msgbox
+
+import sys
+if sys.version_info.major != 2:
+    unicode = str
 
 def excepthook(excType, excValue, tracebackobj):
     """
@@ -33,7 +40,7 @@ def excepthook(excType, excValue, tracebackobj):
 
     try:
         excValueStr = str(excValue).decode('utf-8')
-    except UnicodeEncodeError, e:
+    except UnicodeEncodeError as e:
         excValueStr = unicode(excValue)
     
     errmsg = u'{0}: \n{1}'.format(excType, excValueStr)
@@ -43,7 +50,7 @@ def excepthook(excType, excValue, tracebackobj):
         f = codecs.open(logFile, "a+", encoding='utf-8')
         f.write(msg)
         f.close()
-    except IOError, e:
+    except IOError as e:
         msgbox(u"unable to write to {0}".format(logFile), u"Writing error")
 
     # always show an error message

@@ -432,7 +432,7 @@ class CSVImportDialog(QtGui.QDialog):
                     header=self._header)
                 dataFrame = dataFrame.apply(fillNoneValues)
                 dataFrame = dataFrame.apply(convertTimestamps)
-            except Exception, err:
+            except Exception as err:
                 self.updateStatusBar(str(err))
                 return pandas.DataFrame()
             self.updateStatusBar('Preview generated.')
@@ -586,14 +586,14 @@ class CSVExportDialog(QtGui.QDialog):
 
         try:
             dataFrame = self._model.dataFrame()
-        except AttributeError, err:
+        except AttributeError as err:
             raise AttributeError('No data loaded to export.')
         else:
             try:
                 dataFrame.to_csv(filename, encoding=encoding, header=header, index=index, sep=delimiter)
-            except IOError, err:
+            except IOError as err:
                 raise IOError('No filename given')
-            except UnicodeError, err:
+            except UnicodeError as err:
                 raise UnicodeError('Could not encode all data. Choose a different encoding')
             except Exception:
                 raise
@@ -620,7 +620,7 @@ class CSVExportDialog(QtGui.QDialog):
         """
         try:
             self._saveModel()
-        except Exception, err:
+        except Exception as err:
             self._statusBar.showMessage(str(err))
         else:
             self._resetWidgets()

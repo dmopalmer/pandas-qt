@@ -8,17 +8,18 @@ import os
 import re
 import sys
 
-# TODO: sip is only needed for PyQt4, they should be imported together.
-try:
-    import sip
-except ImportError as e:
-    raise ImportError, "install sip first (comming with PyQt4)"
 
 try:
     import PyQt4
+    try:
+        import sip
+    except ImportError as e:
+        raise ImportError("install sip first (coming with PyQt4)")
 except ImportError as e:
-    # TODO: try to import PySide.
-    raise ImportError, "install PyQt4 or PySide"
+    try:
+        import PySide
+    except:
+        raise ImportError("install PyQt4 or PySide")
 
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -70,6 +71,8 @@ setup(
     
     include_package_data=True,
     packages=['pandasqt'],
+    
+    use_2to3=True,
     
     platforms='any',
     test_suite='tests',
