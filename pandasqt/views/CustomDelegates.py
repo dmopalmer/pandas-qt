@@ -2,6 +2,9 @@
 
 
 from pandasqt.compat import Qt, QtCore, QtGui, Signal, Slot
+import sys
+if sys.version_info.major != 2:
+    unicode = str
 
 import numpy
 from pandasqt.views.BigIntSpinbox import BigIntSpinbox
@@ -75,7 +78,7 @@ class BigIntSpinboxDelegate(QtGui.QItemDelegate):
             editor.setMinimum(self.minimum)
             editor.setMaximum(self.maximum)
             editor.setSingleStep(self.singleStep)
-        except TypeError, err:
+        except TypeError as err:
             # initiate the editor with default values
             pass
         return editor
@@ -157,7 +160,7 @@ class CustomDoubleSpinboxDelegate(QtGui.QItemDelegate):
             editor.setMaximum(self.maximum)
             editor.setSingleStep(self.singleStep)
             editor.setDecimals(self.decimals)
-        except TypeError, err:
+        except TypeError as err:
             # initiate the spinbox with default values.
             pass
         return editor

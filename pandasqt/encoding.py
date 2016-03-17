@@ -12,7 +12,7 @@ if sys.platform == 'win32':
 try:
     import magic
     AUTODETECT = True
-except ImportError, e:
+except ImportError as e:
     #if sys.platform == 'darwin':
     raise ImportError('Please install libmagic')
     AUTODETECT = False

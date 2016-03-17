@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from pandasqt.compat import Qt, QtCore, QtGui
+import sys
+if sys.version_info.major != 2:
+    unicode = str
+
 
 import parser
 import re

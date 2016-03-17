@@ -1,7 +1,9 @@
+from __future__ import print_function
 import sys
 import time
 from pandasqt.compat import QtCore, QtGui, Qt, Slot, Signal
-import imgs
+
+import imgs_compat
 
 from pandasqt.views.OverlayProgressView import OverlayProgressWidget
 
@@ -66,7 +68,7 @@ class Example(QtGui.QWidget):
 
     @Slot()
     def debugPrint(self):
-        print 'THREAD %s ended' % (self.sender().name, )
+        print('THREAD %s ended' % (self.sender().name, ))
 
 
 if __name__ == '__main__':
