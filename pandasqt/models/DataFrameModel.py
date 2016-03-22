@@ -540,7 +540,7 @@ class DataFrameModel(QtCore.QAbstractTableModel):
                 val = dtype.type()
             defaultValues.append(val)
 
-        for i in xrange(count):
+        for i in range(count):
             self._dataFrame.loc[position + i] = defaultValues
         self._dataFrame.reset_index()
         self.endInsertRows()
