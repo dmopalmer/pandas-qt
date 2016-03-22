@@ -654,7 +654,7 @@ def _calculateEncodingKey(comparator):
 
     """
     encodingName = None
-    for k, v in _encodings.viewitems():
+    for k, v in _encodings.items():
         if v == comparator:
             encodingName = k
             break

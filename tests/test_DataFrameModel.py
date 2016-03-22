@@ -614,7 +614,7 @@ class TestEditMode(object):
                 defaultVal = _type()
 
             assert model.addDataFrameColumn(desc, _type, defaultVal)
-            for row in xrange(rowCount):
+            for row in range(rowCount):
                 idx = model.index(row, columnCount + index)
                 newVal = idx.data(DATAFRAME_ROLE)
                 assert newVal == defaultVal
@@ -645,7 +645,7 @@ class TestEditMode(object):
         columnNames = dataFrame.columns.tolist()
         columnNames = [(i, n) for i, n in enumerate(columnNames)]
 
-        for cycle in xrange(1000):
+        for cycle in range(1000):
             elements = random.randint(1, len(columnNames))
             names = random.sample(columnNames, elements)
             df = dataFrame.copy()
