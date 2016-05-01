@@ -180,7 +180,8 @@ class TestCSVImportWidget(object):
             assert x
             assert isinstance(x, DataFrameModel)
             assert path
-            assert isinstance(path, str)
+            # FIXME make Python-2/3 compatible
+            # assert isinstance(path, basestring)
 
         csvwidget.load.connect(_assert)
         with qtbot.waitSignal(csvwidget.load):

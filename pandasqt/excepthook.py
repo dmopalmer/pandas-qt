@@ -2,9 +2,9 @@
 
 import time
 try:
-    import cStringIO
+    from cStringIO import StringIO
 except ImportError:
-    from io import StringIO as cStringIO
+    from io import StringIO
 import traceback
 from pandasqt.compat import QtWidgets
 import codecs
@@ -32,7 +32,7 @@ def excepthook(excType, excValue, tracebackobj):
     notice += """A log has been written to "{}".\n\nError information:""".format(logFile)
     timeString = time.strftime("%Y-%m-%d, %H:%M:%S")
 
-    tbinfofile = io.StringIO()
+    tbinfofile = StringIO()
     traceback.print_tb(tracebackobj, None, tbinfofile)
     tbinfofile.seek(0)
     tbinfo = tbinfofile.read()
