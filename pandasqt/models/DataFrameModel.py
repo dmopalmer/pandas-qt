@@ -7,10 +7,6 @@
 from datetime import datetime
 
 from pandasqt.compat import Qt, QtCore, QtGui, Slot, Signal
-import sys
-if sys.version_info.major != 2:
-    unicode = str
-
 
 
 import pandas
@@ -155,7 +151,7 @@ class DataFrameModel(QtCore.QAbstractTableModel):
                 Formatting string for conversion of timestamps to QtCore.QDateTime. Used in data method.
 
         """
-        if not isinstance(timestampFormat, (unicode, )):
+        if not isinstance(timestampFormat, str):
             raise TypeError('not of type unicode')
         #assert isinstance(timestampFormat, unicode) or timestampFormat.__class__.__name__ == "DateFormat", "not of type unicode"
         self._timestampFormat = timestampFormat
@@ -355,7 +351,7 @@ class DataFrameModel(QtCore.QAbstractTableModel):
                 try:
                     value = pandas.Timestamp(value)
                 except Exception:
-                    raise Exception(u"Can't convert '{0}' into a datetime".format(value))
+                    raise Exception("Can't convert '{0}' into a datetime".format(value))
                     return False
             else:
                 raise TypeError("try to set unhandled data type")
