@@ -2,7 +2,7 @@
 import os
 import tempfile
 
-from pandasqt.compat import Qt, QtCore, QtGui
+from pandasqt.compat import Qt, QtCore, QtGui, QtWidgets
 
 
 import numpy
@@ -34,7 +34,7 @@ def tmp(request):
 class TestValidator(object):
 
     def test_input(self, qtbot):
-        widget = QtGui.QLineEdit()
+        widget = QtWidgets.QLineEdit()
         widget.setValidator(DelimiterValidator())
         qtbot.addWidget(widget)
         widget.show()
@@ -51,8 +51,8 @@ class TestDelimiterBox(object):
         qtbot.addWidget(box)
         box.show()
 
-        buttons = box.findChildren(QtGui.QRadioButton)
-        lineedit = box.findChildren(QtGui.QLineEdit)[0]
+        buttons = box.findChildren(QtWidgets.QRadioButton)
+        lineedit = box.findChildren(QtWidgets.QLineEdit)[0]
 
         delimiters = []
         for button in buttons:
@@ -72,8 +72,8 @@ class TestDelimiterBox(object):
         qtbot.addWidget(box)
         box.show()
 
-        buttons = box.findChildren(QtGui.QRadioButton)
-        lineedit = box.findChildren(QtGui.QLineEdit)[0]
+        buttons = box.findChildren(QtWidgets.QRadioButton)
+        lineedit = box.findChildren(QtWidgets.QLineEdit)[0]
 
         delimiters = []
         for button in buttons:
@@ -92,18 +92,18 @@ class TestCSVImportWidget(object):
         qtbot.addWidget(csvwidget)
         csvwidget.show()
         assert csvwidget.isModal()
-        assert csvwidget.windowTitle() == u'Import CSV'
+        assert csvwidget.windowTitle() == 'Import CSV'
 
     def test_fileinput(self, qtbot, csv_file):
         csvwidget = CSVImportDialog()
         qtbot.addWidget(csvwidget)
         csvwidget.show()
-        labels = csvwidget.findChildren(QtGui.QLabel)
-        assert labels[0].text() == u'Choose File'
-        lineedits = csvwidget.findChildren(QtGui.QLineEdit)
+        labels = csvwidget.findChildren(QtWidgets.QLabel)
+        assert labels[0].text() == 'Choose File'
+        lineedits = csvwidget.findChildren(QtWidgets.QLineEdit)
         qtbot.keyClicks(lineedits[0], csv_file)
         assert csvwidget._previewTableView.model() is not None
-        assert csvwidget._delimiter == u';'
+        assert csvwidget._delimiter == ';'
         assert csvwidget._header is None
 
     def test_header(self, qtbot):
@@ -112,7 +112,7 @@ class TestCSVImportWidget(object):
         csvwidget.show()
 
         assert csvwidget._header == None
-        checkboxes = csvwidget.findChildren(QtGui.QCheckBox)
+        checkboxes = csvwidget.findChildren(QtWidgets.QCheckBox)
         checkboxes[0].toggle()
         assert csvwidget._header == 0
 
@@ -121,7 +121,7 @@ class TestCSVImportWidget(object):
         qtbot.addWidget(csvwidget)
         csvwidget.show()
 
-        comboboxes = csvwidget.findChildren(QtGui.QComboBox)
+        comboboxes = csvwidget.findChildren(QtWidgets.QComboBox)
         comboboxes[0]
         assert comboboxes[0].itemText(comboboxes[0].currentIndex()) == 'ASCII'
         qtbot.mouseClick(comboboxes[0], QtCore.Qt.LeftButton)
@@ -133,9 +133,9 @@ class TestCSVImportWidget(object):
         qtbot.addWidget(csvwidget)
         csvwidget.show()
 
-        groupboxes = csvwidget.findChildren(QtGui.QGroupBox)
-        radiobuttons = groupboxes[0].findChildren(QtGui.QRadioButton)
-        lineedits = groupboxes[0].findChildren(QtGui.QLineEdit)
+        groupboxes = csvwidget.findChildren(QtWidgets.QGroupBox)
+        radiobuttons = groupboxes[0].findChildren(QtWidgets.QRadioButton)
+        lineedits = groupboxes[0].findChildren(QtWidgets.QLineEdit)
 
         for button in radiobuttons:
             qtbot.mouseClick(button, QtCore.Qt.LeftButton)
@@ -151,7 +151,7 @@ class TestCSVImportWidget(object):
         qtbot.addWidget(csvwidget)
         csvwidget.show()
 
-        buttons = csvwidget.findChildren(QtGui.QPushButton)
+        buttons = csvwidget.findChildren(QtWidgets.QPushButton)
         for button in buttons:
             qtbot.mouseClick(button, QtCore.Qt.LeftButton)
             assert csvwidget.isVisible() == False
@@ -161,13 +161,13 @@ class TestCSVImportWidget(object):
         csvwidget = CSVImportDialog()
         qtbot.addWidget(csvwidget)
         csvwidget.show()
-        labels = csvwidget.findChildren(QtGui.QLabel)
-        lineedits = csvwidget.findChildren(QtGui.QLineEdit)
+        labels = csvwidget.findChildren(QtWidgets.QLabel)
+        lineedits = csvwidget.findChildren(QtWidgets.QLineEdit)
         qtbot.keyClicks(lineedits[0], csv_file)
 
-        groupboxes = csvwidget.findChildren(QtGui.QGroupBox)
-        radiobuttons = groupboxes[0].findChildren(QtGui.QRadioButton)
-        lineedits = groupboxes[0].findChildren(QtGui.QLineEdit)
+        groupboxes = csvwidget.findChildren(QtWidgets.QGroupBox)
+        radiobuttons = groupboxes[0].findChildren(QtWidgets.QRadioButton)
+        lineedits = groupboxes[0].findChildren(QtWidgets.QLineEdit)
 
         for button in radiobuttons:
             qtbot.mouseClick(button, QtCore.Qt.LeftButton)
@@ -180,7 +180,7 @@ class TestCSVImportWidget(object):
             assert x
             assert isinstance(x, DataFrameModel)
             assert path
-            assert isinstance(path, basestring)
+            assert isinstance(path, str)
 
         csvwidget.load.connect(_assert)
         with qtbot.waitSignal(csvwidget.load):
@@ -193,15 +193,15 @@ class TestCSVExportWidget(object):
         qtbot.addWidget(csvwidget)
         csvwidget.show()
         assert csvwidget.isModal()
-        assert csvwidget.windowTitle() == u'Export to CSV'
+        assert csvwidget.windowTitle() == 'Export to CSV'
 
     def test_fileoutput(self, qtbot, csv_file):
         csvwidget = CSVExportDialog()
         qtbot.addWidget(csvwidget)
         csvwidget.show()
-        labels = csvwidget.findChildren(QtGui.QLabel)
-        assert labels[0].text() == u'Output File'
-        lineedits = csvwidget.findChildren(QtGui.QLineEdit)
+        labels = csvwidget.findChildren(QtWidgets.QLabel)
+        assert labels[0].text() == 'Output File'
+        lineedits = csvwidget.findChildren(QtWidgets.QLineEdit)
         qtbot.keyClicks(lineedits[0], csv_file)
         assert csvwidget._filenameLineEdit.text() == csv_file
 
@@ -210,7 +210,7 @@ class TestCSVExportWidget(object):
         qtbot.addWidget(csvwidget)
         csvwidget.show()
 
-        checkboxes = csvwidget.findChildren(QtGui.QCheckBox)
+        checkboxes = csvwidget.findChildren(QtWidgets.QCheckBox)
         checkboxes[0].toggle()
         assert csvwidget._headerCheckBox.isChecked()
 
@@ -219,7 +219,7 @@ class TestCSVExportWidget(object):
         qtbot.addWidget(csvwidget)
         csvwidget.show()
 
-        comboboxes = csvwidget.findChildren(QtGui.QComboBox)
+        comboboxes = csvwidget.findChildren(QtWidgets.QComboBox)
         comboboxes[0]
         assert comboboxes[0].itemText(comboboxes[0].currentIndex()) == 'UTF_8'
 
@@ -228,9 +228,9 @@ class TestCSVExportWidget(object):
         qtbot.addWidget(csvwidget)
         csvwidget.show()
 
-        groupboxes = csvwidget.findChildren(QtGui.QGroupBox)
-        radiobuttons = groupboxes[0].findChildren(QtGui.QRadioButton)
-        lineedits = groupboxes[0].findChildren(QtGui.QLineEdit)
+        groupboxes = csvwidget.findChildren(QtWidgets.QGroupBox)
+        radiobuttons = groupboxes[0].findChildren(QtWidgets.QRadioButton)
+        lineedits = groupboxes[0].findChildren(QtWidgets.QLineEdit)
 
         delimiter = None
         for button in radiobuttons:
@@ -249,7 +249,7 @@ class TestCSVExportWidget(object):
         qtbot.addWidget(csvwidget)
         csvwidget.show()
 
-        buttons = csvwidget.findChildren(QtGui.QPushButton)
+        buttons = csvwidget.findChildren(QtWidgets.QPushButton)
         for button in buttons:
             qtbot.mouseClick(button, QtCore.Qt.LeftButton)
             if button.text() == 'Export Data':
@@ -265,18 +265,18 @@ class TestDateTimeConversion(object):
         qtbot.addWidget(importWidget)
         importWidget.show()
 
-        import_lineedits = importWidget.findChildren(QtGui.QLineEdit)
+        import_lineedits = importWidget.findChildren(QtWidgets.QLineEdit)
         qtbot.keyClicks(import_lineedits[0], csv_file)
 
-        groupboxes = importWidget.findChildren(QtGui.QGroupBox)
-        radiobuttons = groupboxes[0].findChildren(QtGui.QRadioButton)
+        groupboxes = importWidget.findChildren(QtWidgets.QGroupBox)
+        radiobuttons = groupboxes[0].findChildren(QtWidgets.QRadioButton)
 
         for button in radiobuttons:
             if button.text() == 'Semicolon':
                 qtbot.mouseClick(button, QtCore.Qt.LeftButton)
                 break
 
-        checkboxes = importWidget.findChildren(QtGui.QCheckBox)
+        checkboxes = importWidget.findChildren(QtWidgets.QCheckBox)
         checkboxes[0].toggle()
 
         model_in = importWidget._previewTableView.model()
@@ -294,21 +294,21 @@ class TestDateTimeConversion(object):
         qtbot.addWidget(exportWidget)
         exportWidget.show()
 
-        lineedits = exportWidget.findChildren(QtGui.QLineEdit)
+        lineedits = exportWidget.findChildren(QtWidgets.QLineEdit)
         qtbot.keyClicks(lineedits[0], tmp)
 
-        groupboxes = exportWidget.findChildren(QtGui.QGroupBox)
-        radiobuttons = groupboxes[0].findChildren(QtGui.QRadioButton)
+        groupboxes = exportWidget.findChildren(QtWidgets.QGroupBox)
+        radiobuttons = groupboxes[0].findChildren(QtWidgets.QRadioButton)
 
         for button in radiobuttons:
             if button.text() == 'Semicolon':
                 qtbot.mouseClick(button, QtCore.Qt.LeftButton)
                 break
 
-        checkboxes = exportWidget.findChildren(QtGui.QCheckBox)
+        checkboxes = exportWidget.findChildren(QtWidgets.QCheckBox)
         checkboxes[0].toggle()
 
-        buttons = exportWidget.findChildren(QtGui.QPushButton)
+        buttons = exportWidget.findChildren(QtWidgets.QPushButton)
 
         with qtbot.waitSignal(exportWidget.exported, timeout=3000):
             for button in buttons:
@@ -318,7 +318,7 @@ class TestDateTimeConversion(object):
 
         import_lineedits[0].clear()
         qtbot.keyClicks(import_lineedits[0], tmp)
-        buttons = importWidget.findChildren(QtGui.QPushButton)
+        buttons = importWidget.findChildren(QtWidgets.QPushButton)
         with qtbot.waitSignal(importWidget.load, timeout=3000):
             for button in buttons:
                 if button.text() == 'Load Data':

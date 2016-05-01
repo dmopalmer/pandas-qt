@@ -1,5 +1,5 @@
 
-from __future__ import print_function
+
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 import io
@@ -12,13 +12,18 @@ import sys
 try:
     import sip
 except ImportError as e:
-    raise ImportError, "install sip first (comming with PyQt4)"
+    raise ImportError("install sip first (comming with PyQt4)")
 
 try:
     import PyQt4
-except ImportError as e:
-    # TODO: try to import PySide.
-    raise ImportError, "install PyQt4 or PySide"
+except ImportError:
+    try:
+        import PyQt5
+    except ImportError:
+        try:
+            import pyside
+        except ImportError:
+            raise ImportError("install PyQt4, PyQt5, or PySide")
 
 
 here = os.path.abspath(os.path.dirname(__file__))
