@@ -1,4 +1,7 @@
-import pickle as pickle
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
 from pandasqt.models.SupportedDtypes import SupportedDtypes
 from pandasqt.compat import QtCore
 

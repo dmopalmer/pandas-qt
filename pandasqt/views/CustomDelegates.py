@@ -2,6 +2,9 @@
 
 
 from pandasqt.compat import Qt, QtCore, QtGui, QtWidgets, Signal, Slot
+import sys
+if sys.version_info.major != 2:
+    unicode = str
 
 import numpy
 from pandasqt.views.BigIntSpinbox import BigIntSpinbox

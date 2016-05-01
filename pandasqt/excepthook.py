@@ -1,7 +1,10 @@
 # copied and modified from Eric IDE ( credits goes to author )
 
 import time
-import io
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from io import StringIO
 import traceback
 from pandasqt.compat import QtWidgets
 import codecs
@@ -9,6 +12,10 @@ import os
 import tempfile
 # fallback solution to show a OS independent messagebox
 from easygui.boxes.derived_boxes import msgbox
+
+import sys
+if sys.version_info.major != 2:
+    unicode = str
 
 def excepthook(excType, excValue, tracebackobj):
     """
@@ -25,7 +32,7 @@ def excepthook(excType, excValue, tracebackobj):
     notice += """A log has been written to "{}".\n\nError information:""".format(logFile)
     timeString = time.strftime("%Y-%m-%d, %H:%M:%S")
 
-    tbinfofile = io.StringIO()
+    tbinfofile = StringIO()
     traceback.print_tb(tracebackobj, None, tbinfofile)
     tbinfofile.seek(0)
     tbinfo = tbinfofile.read()
@@ -38,15 +45,15 @@ def excepthook(excType, excValue, tracebackobj):
     except (UnicodeEncodeError, AttributeError) as e:
         excValueStr = str(excValue)
     
-    errmsg = '{0}: \n{1}'.format(excType, excValueStr)
-    sections = ['\n', separator, timeString, separator, errmsg, separator, tbinfo]
-    msg = '\n'.join(sections)
+    errmsg = u'{0}: \n{1}'.format(excType, excValueStr)
+    sections = [u'\n', separator, timeString, separator, errmsg, separator, tbinfo]
+    msg = u'\n'.join(sections)
     try:
         f = codecs.open(logFile, "a+", encoding='utf-8')
         f.write(msg)
         f.close()
     except IOError as e:
-        msgbox("unable to write to {0}".format(logFile), "Writing error")
+        msgbox(u"unable to write to {0}".format(logFile), u"Writing error")
 
     # always show an error message
     try:
