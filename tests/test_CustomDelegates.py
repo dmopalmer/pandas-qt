@@ -50,7 +50,7 @@ class TestCustomDelegates(object):
         "widgetClass, model, exception, exceptionContains", [
             (QtWidgets.QWidget, None, AttributeError, "has no attribute 'model'"),
             (DemoTableView, None, ValueError, "no model set for the current view"),
-            (DemoTableView, QtWidgets.QStandardItemModel(), TypeError, 'model is not of type DataFrameModel'),
+            (DemoTableView, QtGui.QStandardItemModel(), TypeError, 'model is not of type DataFrameModel'),
         ]
     )
     def test_tableViewMissing(self, widgetClass, qtbot, model, exception, exceptionContains):
@@ -58,7 +58,7 @@ class TestCustomDelegates(object):
         qtbot.addWidget(widget)
         with pytest.raises(exception) as excinfo:
             if model:
-                widget.setModel(QtWidgets.QStandardItemModel())
+                widget.setModel(QtGui.QStandardItemModel())
             createDelegate('foo', 'bar', widget)
         assert exceptionContains in str(excinfo.value)
 
