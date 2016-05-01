@@ -16,7 +16,7 @@ def exception2():
     raise ValueError(u"Test Test ä")
 
 def exception3():
-    raise ValueError("Test Test")
+    raise ValueError(u"Test Test")
 
 def exception4():
     raise ValueError("Test Test")

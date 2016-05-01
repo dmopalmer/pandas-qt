@@ -155,7 +155,7 @@ class DataFrameModel(QtCore.QAbstractTableModel):
                 Formatting string for conversion of timestamps to QtCore.QDateTime. Used in data method.
 
         """
-        if not isinstance(timestampFormat, str):
+        if not isinstance(timestampFormat, (unicode, )):
             raise TypeError('not of type unicode')
         #assert isinstance(timestampFormat, unicode) or timestampFormat.__class__.__name__ == "DateFormat", "not of type unicode"
         self._timestampFormat = timestampFormat
