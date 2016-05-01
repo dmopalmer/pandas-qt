@@ -76,6 +76,8 @@ setup(
     include_package_data=True,
     packages=['pandasqt'],
     
+    use_2to3=True,
+
     platforms='any',
     test_suite='tests',
     classifiers = [
