@@ -1,5 +1,5 @@
 
-from __future__ import print_function
+
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 import io
@@ -8,18 +8,22 @@ import os
 import re
 import sys
 
+# TODO: sip is only needed for PyQt4, they should be imported together.
+try:
+    import sip
+except ImportError as e:
+    raise ImportError("install sip first (comming with PyQt4)")
 
 try:
     import PyQt4
+except ImportError:
     try:
-        import sip
-    except ImportError as e:
-        raise ImportError("install sip first (coming with PyQt4)")
-except ImportError as e:
-    try:
-        import PySide
-    except:
-        raise ImportError("install PyQt4 or PySide")
+        import PyQt5
+    except ImportError:
+        try:
+            import pyside
+        except ImportError:
+            raise ImportError("install PyQt4, PyQt5, or PySide")
 
 
 here = os.path.abspath(os.path.dirname(__file__))

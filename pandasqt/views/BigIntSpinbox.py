@@ -11,8 +11,9 @@ if sys.version_info.major != 2:
     int_or_long = (int, )
 else:
     int_or_long = (int, long)
+from pandasqt.compat import Qt, QtCore, QtGui, QtWidgets
 
-class BigIntSpinbox(QtGui.QAbstractSpinBox):
+class BigIntSpinbox(QtWidgets.QAbstractSpinBox):
     """Custom spinbox for very big integers (like numpy.int64 and uint64)
 
     Attributes:
@@ -37,7 +38,7 @@ class BigIntSpinbox(QtGui.QAbstractSpinBox):
         rx = QtCore.QRegExp("[0-9]\\d{0,20}")
         validator = QtGui.QRegExpValidator(rx, self)
 
-        self._lineEdit = QtGui.QLineEdit(self)
+        self._lineEdit = QtWidgets.QLineEdit(self)
         self._lineEdit.setText('0')
         self._lineEdit.setValidator(validator)
         self.setLineEdit(self._lineEdit)
@@ -59,11 +60,11 @@ class BigIntSpinbox(QtGui.QAbstractSpinBox):
             True if all went fine.
         """
         if value >= self.minimum() and value <= self.maximum():
-            self._lineEdit.setText(unicode(value))
+            self._lineEdit.setText(str(value))
         elif value < self.minimum():
-            self._lineEdit.setText(unicode(self.minimum()))
+            self._lineEdit.setText(str(self.minimum()))
         elif value > self.maximum():
-            self._lineEdit.setText(unicode(self.maximum()))
+            self._lineEdit.setText(str(self.maximum()))
         return True
 
     def stepBy(self, steps):
